@@ -1,0 +1,125 @@
+export default function Home() {
+  return (
+    <main className="relative min-h-screen overflow-hidden bg-[#020817] text-white">
+      {/* Background */}
+      <div className="absolute inset-0">
+        <img
+          src="/europe-bg.jpg"
+          alt="Europe"
+          className="h-full w-full object-cover opacity-40"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#020817] via-[#020817]/95 to-[#020817]/40" />
+      </div>
+
+      {/* Navbar */}
+      <nav className="relative z-10 flex items-center justify-between px-8 py-8 lg:px-16">
+        <div className="flex items-center gap-3">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600">
+            <svg
+              viewBox="0 0 100 100"
+              className="h-8 w-8 fill-white"
+            >
+              <path d="M50 75C30 65 15 45 15 25C30 40 40 45 50 50C60 45 70 40 85 25C85 45 70 65 50 75Z" />
+            </svg>
+          </div>
+
+          <span className="text-3xl font-bold tracking-tight">
+            Volairr
+          </span>
+        </div>
+
+        <a
+          href="#waitlist"
+          className="rounded-full bg-blue-600 px-5 py-3 text-sm font-medium transition hover:bg-blue-500"
+        >
+          Join Waitlist
+        </a>
+      </nav>
+
+      {/* Hero */}
+      <section className="relative z-10 mx-auto flex min-h-[80vh] max-w-7xl items-center px-8 lg:px-16">
+        <div className="max-w-3xl">
+          <div className="mb-6 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-2 text-sm text-blue-300">
+            🇪🇺 Built for Europe
+          </div>
+
+          <h1 className="text-6xl font-bold leading-tight lg:text-8xl">
+            Never miss
+            <br />
+            Europe's best
+            <span className="block bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+              flight deals
+            </span>
+          </h1>
+
+          <p className="mt-8 max-w-xl text-xl text-slate-300">
+            Smart alerts for mistake fares, hidden deals and cheap
+            flights across Europe.
+          </p>
+
+          <div
+            id="waitlist"
+            className="mt-12 flex max-w-xl flex-col gap-4 sm:flex-row"
+          >
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="flex-1 rounded-xl border border-white/10 bg-white/5 px-6 py-4 outline-none backdrop-blur"
+            />
+
+            <button className="rounded-xl bg-blue-600 px-8 py-4 font-semibold transition hover:bg-blue-500">
+              Notify Me
+            </button>
+          </div>
+
+          <div className="mt-16 grid grid-cols-2 gap-8 md:grid-cols-4">
+            <div>
+              <div className="mb-2 text-blue-400">✈️</div>
+              <h3 className="font-medium">Flight Deals</h3>
+              <p className="mt-1 text-sm text-slate-400">
+                Hidden fares
+              </p>
+            </div>
+
+            <div>
+              <div className="mb-2 text-blue-400">🔔</div>
+              <h3 className="font-medium">Alerts</h3>
+              <p className="mt-1 text-sm text-slate-400">
+                Instant updates
+              </p>
+            </div>
+
+            <div>
+              <div className="mb-2 text-blue-400">🌍</div>
+              <h3 className="font-medium">Europe</h3>
+              <p className="mt-1 text-sm text-slate-400">
+                Hundreds of routes
+              </p>
+            </div>
+
+            <div>
+              <div className="mb-2 text-blue-400">🛡️</div>
+              <h3 className="font-medium">Trusted</h3>
+              <p className="mt-1 text-sm text-slate-400">
+                Privacy first
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="relative z-10 border-t border-white/10 px-8 py-8 lg:px-16">
+        <div className="flex flex-col gap-4 text-slate-400 md:flex-row md:justify-between">
+          <p>© 2026 Volairr</p>
+
+          <div className="flex gap-6">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Contact</a>
+          </div>
+        </div>
+      </footer>
+    </main>
+  );
+}
