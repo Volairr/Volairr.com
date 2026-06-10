@@ -1,125 +1,512 @@
-export default function Home() {
-  return (
-    <main className="relative min-h-screen overflow-hidden bg-[#020817] text-white">
-      {/* Background */}
-      <div className="absolute inset-0">
-        <img
-          src="/europe-bg.jpg"
-          alt="Europe"
-          className="h-full w-full object-cover opacity-40"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#020817] via-[#020817]/95 to-[#020817]/40" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Volairr — Cheap flights across Europe, before everyone else</title>
+<meta name="description" content="Volairr watches thousands of fares across Europe around the clock and emails you the moment prices crash. No more searching — just unmissable flight deals." />
+<meta name="theme-color" content="#FFFFFF" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Volairr — Cheap flights across Europe, before everyone else" />
+<meta property="og:description" content="Fly smarter. Explore more. Smart alerts for mistake fares, hidden deals and cheap flights across Europe — straight to your inbox." />
+<meta property="og:site_name" content="Volairr" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 88'%3E%3Cpath d='M49 70C34 58 20 40 10 14c11 16 24 28 33 39 3 5 5 11 6 17z' fill='%232563EB'/%3E%3Cpath d='M51 70c15-12 29-30 39-56-11 16-24 28-33 39-3 5-5 11-6 17z' fill='%2338BDF8'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+
+<!--
+  ┌─────────────────────────────────────────────────────────────┐
+  │  HOW TO EDIT THIS PAGE                                         │
+  │  • Text: just change the words inside each section below.     │
+  │  • Brand colours: edit the values in  :root { ... }  (top).   │
+  │  • Live deals: search for  "EDIT: deals"  (two spots).        │
+  │  • Newsletter signup: search for  "EDIT: signup"  and paste   │
+  │    your Beehiiv link / embed where indicated.                 │
+  └─────────────────────────────────────────────────────────────┘
+-->
+
+<style>
+  :root{
+    /* ---- BRAND COLOURS (edit here) ---- */
+    --navy:#0F172A;--royal:#2563EB;--royal-d:#1D4FD7;--sky:#38BDF8;--emerald:#10B981;
+    --bg:#FFFFFF;--bg-soft:#F5F8FD;--ink:#0F172A;--muted:#5C6B82;--muted-2:#8A99AD;
+    --line:rgba(15,23,42,.07);--line-2:rgba(15,23,42,.12);--line-d:rgba(255,255,255,.12);
+    --grad:linear-gradient(135deg,#2563EB 0%,#38BDF8 100%);
+    --sh-sm:0 2px 10px rgba(15,23,42,.04);--sh-md:0 16px 40px -18px rgba(15,23,42,.16);
+    --sh-lg:0 36px 80px -34px rgba(15,23,42,.22);--sh-blue:0 22px 52px -20px rgba(37,99,235,.45);
+    --maxw:1180px;--display:'Satoshi','Inter',-apple-system,sans-serif;--body:'Inter',-apple-system,sans-serif;--mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}svg{display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  h1,h2,h3,h4,.disp{font-family:var(--display);font-weight:700;letter-spacing:-.025em;line-height:1.05}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+
+  .logo{display:flex;align-items:center;gap:11px}
+  .logo .mark{width:33px;height:29px}
+  .logo .name{font-family:var(--display);font-weight:700;font-size:24px;color:var(--navy)}
+  .on-dark .name{color:#fff}
+
+  .btn{font-family:var(--display);font-weight:600;font-size:15px;cursor:pointer;border:none;border-radius:13px;padding:13px 22px;transition:transform .2s,box-shadow .25s;white-space:nowrap;display:inline-flex;align-items:center;gap:9px}
+  .btn-grad{background:var(--grad);color:#fff;box-shadow:var(--sh-blue)}
+  .btn-grad:hover{transform:translateY(-2px);box-shadow:0 30px 64px -24px rgba(37,99,235,.6)}
+  .btn-light{background:#fff;color:var(--navy);border:1px solid var(--line-2)}
+  .btn-light:hover{transform:translateY(-2px);box-shadow:var(--sh-md)}
+  .btn-white{background:#fff;color:var(--royal)}
+  .btn-white:hover{transform:translateY(-2px);box-shadow:0 18px 40px -16px rgba(0,0,0,.3)}
+
+  /* nav */
+  header{position:fixed;top:0;left:0;right:0;z-index:120;padding:20px 0;transition:background .4s,box-shadow .4s,padding .4s}
+  header.scrolled{background:rgba(255,255,255,.82);backdrop-filter:blur(16px);box-shadow:0 1px 0 var(--line),0 8px 30px -20px rgba(15,23,42,.25);padding:13px 0}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .nav-links{display:flex;align-items:center;gap:32px}
+  .nav-links a{font-size:15px;font-weight:500;color:var(--muted);transition:color .2s}
+  .nav-links a:hover{color:var(--royal)}
+  .nav-cta{display:flex;align-items:center;gap:18px}
+  .nav-login{font-size:15px;font-weight:500;color:var(--navy)}.nav-login:hover{color:var(--royal)}
+
+  /* hero (centered) */
+  .hero{position:relative;text-align:center;background:radial-gradient(50% 45% at 50% -8%,rgba(56,189,248,.16),transparent 60%),radial-gradient(40% 40% at 88% 8%,rgba(37,99,235,.10),transparent 60%),var(--bg);padding:168px 0 56px;overflow:hidden}
+  .hero .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--royal);background:rgba(37,99,235,.07);border:1px solid rgba(37,99,235,.16);padding:7px 15px;border-radius:100px;margin-bottom:26px}
+  h1{font-size:clamp(40px,6vw,68px);font-weight:900;color:var(--navy);max-width:880px;margin:0 auto 22px}
+  .hero-sub{font-size:clamp(17px,2vw,20px);color:var(--muted);max-width:600px;margin:0 auto 34px}
+  .signup{display:flex;gap:10px;max-width:470px;margin:0 auto;flex-wrap:wrap}
+  .signup input{flex:1;min-width:200px;font-family:var(--body);font-size:15px;padding:15px 18px;border-radius:13px;border:1px solid var(--line-2);background:#fff;color:var(--navy);transition:border .25s,box-shadow .25s}
+  .signup input::placeholder{color:var(--muted-2)}
+  .signup input:focus{outline:none;border-color:var(--royal);box-shadow:0 0 0 4px rgba(37,99,235,.12)}
+  .form-note{display:flex;align-items:center;justify-content:center;gap:9px;font-size:13.5px;color:var(--muted);margin-top:15px}
+  .form-note .pulse{width:8px;height:8px;border-radius:50%;background:var(--royal);animation:pulse 2.2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,99,235,.45)}70%{box-shadow:0 0 0 9px rgba(37,99,235,0)}100%{box-shadow:0 0 0 0 rgba(37,99,235,0)}}
+  .success{display:none;align-items:center;justify-content:center;gap:12px;max-width:470px;margin:0 auto;background:rgba(16,185,129,.09);border:1px solid rgba(16,185,129,.3);border-radius:14px;padding:15px 19px;font-size:15px;color:var(--navy)}
+  .success svg{flex:none;color:var(--emerald)}
+
+  /* live ticker */
+  .ticker-sec{padding:30px 0 6px;overflow:hidden}
+  .ticker-lbl{display:flex;align-items:center;justify-content:center;gap:9px;font-size:12.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted-2);margin-bottom:16px}
+  .ticker-lbl .live{width:8px;height:8px;border-radius:50%;background:var(--emerald);animation:pulse2 1.8s infinite}
+  @keyframes pulse2{0%{box-shadow:0 0 0 0 rgba(16,185,129,.5)}70%{box-shadow:0 0 0 7px rgba(16,185,129,0)}100%{box-shadow:0 0 0 0 rgba(16,185,129,0)}}
+  .ticker{position:relative;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+  .ticker-track{display:flex;gap:12px;width:max-content;animation:scroll 48s linear infinite}
+  .ticker:hover .ticker-track{animation-play-state:paused}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .pill{display:flex;align-items:center;gap:11px;background:#fff;border:1px solid var(--line);border-radius:100px;padding:10px 18px;box-shadow:var(--sh-sm);white-space:nowrap}
+  .pill .rt{font-size:14px;font-weight:600;color:var(--navy)}
+  .pill .rt .ar{color:var(--royal);margin:0 3px}
+  .pill .pr{font-family:var(--mono);font-weight:700;font-size:14px;color:var(--navy)}
+  .pill .off{font-size:12px;font-weight:700;color:var(--emerald);background:rgba(16,185,129,.1);padding:3px 9px;border-radius:100px}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
+  .reveal.in{opacity:1;transform:none}
+  .d1{transition-delay:.06s}.d2{transition-delay:.14s}.d3{transition-delay:.22s}.d4{transition-delay:.3s}
+
+  section{padding:96px 0}
+  .soft{background:var(--bg-soft)}
+  .sec-head{max-width:640px;margin:0 auto 56px;text-align:center}
+  .tag{display:inline-block;font-family:var(--display);font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--royal);margin-bottom:16px}
+  h2{font-size:clamp(30px,4.4vw,46px);font-weight:900;color:var(--navy);margin-bottom:18px}
+  .sec-head p{font-size:18px;color:var(--muted)}
+
+  /* how it works */
+  .steps{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .route-line{position:absolute;top:54px;left:14%;right:14%;height:2px;background:repeating-linear-gradient(90deg,rgba(37,99,235,.4) 0 6px,transparent 6px 14px);z-index:0}
+  .step{position:relative;z-index:1;text-align:center;padding:0 14px}
+  .step .ic{width:62px;height:62px;border-radius:18px;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;margin:0 auto 22px;box-shadow:var(--sh-blue)}
+  .step .num{font-family:var(--display);font-weight:700;font-size:13px;color:var(--sky);margin-bottom:7px}
+  .step h3{font-size:21px;color:var(--navy);margin-bottom:10px}
+  .step p{font-size:15.5px;color:var(--muted);max-width:280px;margin:0 auto}
+
+  /* departures board */
+  .board{max-width:920px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--sh-md)}
+  .board-top{background:var(--navy);color:#fff;display:grid;grid-template-columns:80px 1fr 120px 150px 110px;gap:14px;padding:15px 22px;align-items:center;font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+  .board-top .live-tag{display:flex;align-items:center;gap:7px;color:#fff;letter-spacing:0;text-transform:none;font-family:var(--body);font-weight:600;font-size:12px}
+  .board-top .live-tag i{width:7px;height:7px;border-radius:50%;background:var(--emerald);animation:pulse2 1.8s infinite}
+  .board-row{display:grid;grid-template-columns:80px 1fr 120px 150px 110px;gap:14px;padding:16px 22px;align-items:center;border-bottom:1px solid var(--line);transition:background .2s}
+  .board-row:last-child{border-bottom:none}
+  .board-row:hover{background:var(--bg-soft)}
+  .board-row .code{font-family:var(--mono);font-weight:700;font-size:16px;color:var(--royal)}
+  .board-row .to{font-weight:600;font-size:15.5px;color:var(--navy)}
+  .board-row .to small{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+  .board-row .when,.board-row .air{font-size:13.5px;color:var(--muted)}
+  .board-row .pr{text-align:right}
+  .board-row .pr .now{font-family:var(--mono);font-weight:700;font-size:17px;color:var(--navy)}
+  .board-row .pr .off{font-size:12px;font-weight:700;color:var(--emerald)}
+  .board-foot{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 22px;background:var(--bg-soft);flex-wrap:wrap}
+  .board-foot span{font-size:13px;color:var(--muted);font-style:italic}
+
+  /* why */
+  .why-stats{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-bottom:50px;text-align:center}
+  .why-stats .s .n{font-family:var(--display);font-weight:900;font-size:34px;color:var(--royal)}
+  .why-stats .s .l{font-size:14px;color:var(--muted)}
+  .why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  .why{display:flex;gap:18px;padding:28px;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--sh-sm);transition:transform .35s,box-shadow .35s}
+  .why:hover{transform:translateY(-4px);box-shadow:var(--sh-md)}
+  .why .ic{flex:none;width:48px;height:48px;border-radius:13px;background:rgba(37,99,235,.08);display:flex;align-items:center;justify-content:center;color:var(--royal)}
+  .why h4{font-size:20px;color:var(--navy);margin-bottom:6px}.why p{font-size:15px;color:var(--muted)}
+
+  /* pricing */
+  .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
+  .plan{position:relative;background:#fff;border:1px solid var(--line);border-radius:24px;padding:34px 30px;display:flex;flex-direction:column;box-shadow:var(--sh-sm);transition:transform .35s,box-shadow .35s}
+  .plan:hover{transform:translateY(-6px);box-shadow:var(--sh-md)}
+  .plan.feat{background:linear-gradient(180deg,#fff,#F7FAFF);box-shadow:var(--sh-lg);transform:translateY(-8px)}
+  .plan.feat::before{content:"";position:absolute;inset:0;border-radius:24px;padding:2px;background:var(--grad);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+  .badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-family:var(--display);font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#fff;background:var(--grad);padding:6px 15px;border-radius:100px;box-shadow:var(--sh-blue)}
+  .pname{font-family:var(--display);font-weight:700;font-size:21px;color:var(--navy);margin-bottom:6px}
+  .ptag{font-size:14.5px;color:var(--muted);margin-bottom:24px}
+  .pprice{display:flex;align-items:baseline;gap:4px;margin-bottom:26px}
+  .pprice .amt{font-family:var(--display);font-weight:900;font-size:44px;color:var(--navy);letter-spacing:-.02em}
+  .pprice .per{font-size:15px;color:var(--muted)}
+  .plan ul{list-style:none;flex:1;margin-bottom:28px}
+  .plan li{display:flex;gap:11px;align-items:flex-start;font-size:14.5px;padding:8px 0;color:var(--navy)}
+  .plan li svg{flex:none;margin-top:3px;color:var(--royal)}
+  .plan .btn{width:100%;justify-content:center}
+  .price-foot{text-align:center;margin-top:32px;font-size:14.5px;color:var(--muted)}.price-foot b{color:var(--royal)}
+
+  /* faq */
+  .faq{max-width:760px;margin:0 auto}
+  .faq-item{border:1px solid var(--line);border-radius:16px;margin-bottom:12px;background:#fff;box-shadow:var(--sh-sm);overflow:hidden}
+  .faq-q{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;text-align:left;padding:20px 22px;font-family:var(--display);font-weight:600;font-size:17px;color:var(--navy)}
+  .faq-q .chev{flex:none;color:var(--royal);transition:transform .3s}
+  .faq-item.open .faq-q .chev{transform:rotate(180deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+  .faq-a p{padding:0 22px 20px;font-size:15px;color:var(--muted)}
+
+  /* final cta */
+  .cta-sec{background:var(--bg);padding:90px 0}
+  .cta-panel{position:relative;max-width:940px;margin:0 auto;border-radius:32px;background:linear-gradient(140deg,#2563EB 0%,#3B82F6 45%,#38BDF8 100%);padding:66px 40px;text-align:center;color:#fff;overflow:hidden;box-shadow:var(--sh-blue)}
+  .cta-pattern{position:absolute;inset:0;opacity:.12;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128' viewBox='0 0 128 128'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1.5'%3E%3Cpath d='M32 68c-7-5-13-13-17-24 5 7 11 13 16 18 2 2 1 4 1 6zM44 68c7-5 13-13 17-24-5 7-11 13-16 18-2 2-1 4-1 6z'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+  .cta-in{position:relative;z-index:3;max-width:560px;margin:0 auto}
+  .cta-panel h2{color:#fff;margin-bottom:14px}
+  .cta-panel p{font-size:18px;color:rgba(255,255,255,.9);margin-bottom:32px}
+  .cta-panel .signup input{background:rgba(255,255,255,.95);border-color:transparent}
+  .cta-panel .signup input:focus{box-shadow:0 0 0 4px rgba(255,255,255,.3)}
+  .cta-panel .success{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.4);color:#fff}
+  .cta-panel .success svg{color:#fff}
+  .cta-panel .form-note{color:rgba(255,255,255,.8)}.cta-panel .form-note .pulse{background:#fff}
+
+  /* footer */
+  footer{background:var(--navy);color:rgba(255,255,255,.6);padding:58px 0 36px}
+  .foot-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;padding-bottom:34px;border-bottom:1px solid var(--line-d)}
+  .foot-brand{max-width:300px}.foot-brand .logo{margin-bottom:14px}.foot-brand p{font-size:14.5px}
+  .foot-tag{font-family:var(--display);font-weight:500;color:var(--sky);font-size:14px;margin-top:12px}
+  .foot-cols{display:flex;gap:60px;flex-wrap:wrap}
+  .foot-col h5{font-family:var(--display);font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted-2);margin-bottom:15px}
+  .foot-col a{display:block;font-size:14.5px;color:rgba(255,255,255,.62);padding:6px 0;transition:color .2s}
+  .foot-col a:hover{color:var(--sky)}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding-top:26px;font-size:13.5px;color:var(--muted-2)}
+
+  @media(max-width:900px){
+    .steps,.why-grid,.price-grid{grid-template-columns:1fr}
+    .route-line{display:none}
+    .nav-links{display:none}
+    section{padding:72px 0}
+    .plan.feat{transform:none}
+    .board-top,.board-row{grid-template-columns:64px 1fr 92px}
+    .board-top .col-air,.board-row .air,.board-top .col-when,.board-row .when{display:none}
+  }
+  @media(max-width:520px){
+    .wrap{padding:0 20px}.nav-login{display:none}
+    .signup{flex-direction:column}.signup input,.signup .btn{width:100%}
+    .hero{padding:128px 0 48px}.cta-panel{padding:50px 26px}
+    .why-stats{gap:26px}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.ticker-track{animation:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="wgL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1D4FD7"/><stop offset="1" stop-color="#2563EB"/></linearGradient>
+  <linearGradient id="wgR" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563EB"/><stop offset="1" stop-color="#38BDF8"/></linearGradient>
+  <symbol id="mark" viewBox="0 0 100 88"><path d="M49 70C34 58 20 40 10 14c11 16 24 28 33 39 3 5 5 11 6 17z" fill="url(#wgL)"/><path d="M51 70c15-12 29-30 39-56-11 16-24 28-33 39-3 5-5 11-6 17z" fill="url(#wgR)"/></symbol>
+</defs></svg>
+
+<!-- ===== NAV ===== -->
+<header id="hdr">
+  <div class="wrap nav">
+    <a href="#" class="logo"><svg class="mark"><use href="#mark"/></svg><span class="name">Volairr</span></a>
+    <nav class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#board">Deals</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#" class="nav-login">Log in</a>
+      <button class="btn btn-grad" onclick="document.getElementById('email-hero').focus()">Get early access</button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow reveal d1">✦ For travellers across Europe</span>
+    <h1 class="reveal d2">Stop searching for flights.<br>Let the deals <span class="grad-text">come to you.</span></h1>
+    <p class="hero-sub reveal d3">Volairr watches thousands of fares across Europe around the clock and emails you the moment prices crash — so you travel more, for less.</p>
+
+    <!-- EDIT: signup — replace the form action with your Beehiiv form URL to collect real emails -->
+    <form class="signup reveal d3" id="form-hero" onsubmit="return joinWaitlist(event,'hero')">
+      <input type="email" id="email-hero" placeholder="you@email.com" required autocomplete="email"/>
+      <button type="submit" class="btn btn-grad">Get early access</button>
+    </form>
+    <div class="success" id="success-hero"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>You're on board! We'll email you the moment Volairr takes off. ✈</span></div>
+    <p class="form-note reveal d4"><span class="pulse"></span> Launching soon — founding members lock in the lowest price, forever.</p>
+  </div>
+</section>
+
+<!-- ===== LIVE DEALS TICKER ===== -->
+<!-- EDIT: deals — change these pills (route / price / % off). The strip auto-duplicates for a seamless loop. -->
+<section class="ticker-sec">
+  <div class="ticker-lbl"><span class="live"></span> Live deals right now</div>
+  <div class="ticker">
+    <div class="ticker-track" id="ticker">
+      <div class="pill"><span class="rt">AMS <span class="ar">→</span> Lisbon</span><span class="pr">€48</span><span class="off">−56%</span></div>
+      <div class="pill"><span class="rt">EIN <span class="ar">→</span> Barcelona</span><span class="pr">€29</span><span class="off">−65%</span></div>
+      <div class="pill"><span class="rt">BRU <span class="ar">→</span> Rome</span><span class="pr">€55</span><span class="off">−49%</span></div>
+      <div class="pill"><span class="rt">EIN <span class="ar">→</span> Porto</span><span class="pr">€27</span><span class="off">−69%</span></div>
+      <div class="pill"><span class="rt">AMS <span class="ar">→</span> Athens</span><span class="pr">€69</span><span class="off">−59%</span></div>
+      <div class="pill"><span class="rt">RTM <span class="ar">→</span> Faro</span><span class="pr">€55</span><span class="off">−60%</span></div>
+      <div class="pill"><span class="rt">BRU <span class="ar">→</span> Marrakech</span><span class="pr">€79</span><span class="off">−58%</span></div>
+      <div class="pill"><span class="rt">AMS <span class="ar">→</span> Prague</span><span class="pr">€40</span><span class="off">−57%</span></div>
+      <div class="pill"><span class="rt">EIN <span class="ar">→</span> Budapest</span><span class="pr">€33</span><span class="off">−65%</span></div>
+      <div class="pill"><span class="rt">BRU <span class="ar">→</span> Nice</span><span class="pr">€72</span><span class="off">−55%</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">How it works</span>
+      <h2>Three steps between you and your next trip.</h2>
+      <p>You don't lift a finger. Volairr does the hunting and only pings you when it's genuinely worth it.</p>
+    </div>
+    <div class="steps">
+      <div class="route-line"></div>
+      <div class="step reveal d1">
+        <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3" stroke-linecap="round"/></svg></div>
+        <div class="num">01</div><h3>We scan, non-stop</h3>
+        <p>Around the clock we track fares across Europe, from your home airports.</p>
       </div>
+      <div class="step reveal d2">
+        <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="num">02</div><h3>You get the alert</h3>
+        <p>When a price drops far below normal, you're the first to know — in seconds.</p>
+      </div>
+      <div class="step reveal d3">
+        <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13M22 2 15 22 11 13 2 9z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="num">03</div><h3>You book & save</h3>
+        <p>Book directly with the airline in a few taps. Pocket the difference.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-      {/* Navbar */}
-      <nav className="relative z-10 flex items-center justify-between px-8 py-8 lg:px-16">
-        <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600">
-            <svg
-              viewBox="0 0 100 100"
-              className="h-8 w-8 fill-white"
-            >
-              <path d="M50 75C30 65 15 45 15 25C30 40 40 45 50 50C60 45 70 40 85 25C85 45 70 65 50 75Z" />
-            </svg>
-          </div>
+<!-- ===== DEPARTURES BOARD ===== -->
+<!-- EDIT: deals — change these rows to whatever fares you want to show off. -->
+<section id="board" class="soft">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">Today's best fares</span>
+      <h2>Fresh from your airports.</h2>
+      <p>A live taste of what lands in a Volairr member's inbox. Prices like these don't last long.</p>
+    </div>
+    <div class="board reveal">
+      <div class="board-top">
+        <span>From</span><span>To</span><span class="col-when">When</span><span class="col-air">Airline</span><span class="live-tag"><i></i>Updated live</span>
+      </div>
+      <div class="board-row"><span class="code">EIN</span><span class="to">Porto <small>Portugal</small></span><span class="when">8–15 May</span><span class="air">Ryanair</span><span class="pr"><div class="now">€27</div><div class="off">−69%</div></span></div>
+      <div class="board-row"><span class="code">EIN</span><span class="to">Barcelona <small>Spain</small></span><span class="when">14–19 Mar</span><span class="air">Ryanair</span><span class="pr"><div class="now">€29</div><div class="off">−65%</div></span></div>
+      <div class="board-row"><span class="code">AMS</span><span class="to">Prague <small>Czechia</small></span><span class="when">3–7 Apr</span><span class="air">Transavia</span><span class="pr"><div class="now">€40</div><div class="off">−57%</div></span></div>
+      <div class="board-row"><span class="code">AMS</span><span class="to">Lisbon <small>Portugal</small></span><span class="when">12–19 Mar</span><span class="air">TAP</span><span class="pr"><div class="now">€48</div><div class="off">−56%</div></span></div>
+      <div class="board-row"><span class="code">BRU</span><span class="to">Rome <small>Italy</small></span><span class="when">8–14 Mar</span><span class="air">ITA</span><span class="pr"><div class="now">€55</div><div class="off">−49%</div></span></div>
+      <div class="board-row"><span class="code">AMS</span><span class="to">Athens <small>Greece</small></span><span class="when">10–17 May</span><span class="air">Aegean</span><span class="pr"><div class="now">€69</div><div class="off">−59%</div></span></div>
+      <div class="board-row"><span class="code">BRU</span><span class="to">Marrakech <small>Morocco</small></span><span class="when">6–13 Mar</span><span class="air">Ryanair</span><span class="pr"><div class="now">€79</div><div class="off">−58%</div></span></div>
+      <div class="board-foot">
+        <span>Example fares — real alerts go out the moment Volairr launches.</span>
+        <button class="btn btn-light" onclick="document.getElementById('email-cta').focus()">Get these in my inbox</button>
+      </div>
+    </div>
+  </div>
+</section>
 
-          <span className="text-3xl font-bold tracking-tight">
-            Volairr
-          </span>
-        </div>
+<!-- ===== WHY ===== -->
+<section id="why">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">Why Volairr</span>
+      <h2>Built for travellers who refuse to overpay.</h2>
+    </div>
+    <div class="why-stats reveal d1">
+      <div class="s"><div class="n">24/7</div><div class="l">Fares monitored</div></div>
+      <div class="s"><div class="n">30+</div><div class="l">Countries across Europe</div></div>
+      <div class="s"><div class="n">4</div><div class="l">Departure airports</div></div>
+    </div>
+    <div class="why-grid">
+      <div class="why reveal d1"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m7 14 4-4 3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h4>Smarter travel</h4><p>Data and technology do the searching, so you always travel on the best possible fare.</p></div></div>
+      <div class="why reveal d2"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13M22 2 15 22 11 13 2 9z" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h4>Total freedom</h4><p>See more of the world for less. Spontaneous weekends and bucket-list trips, suddenly affordable.</p></div></div>
+      <div class="why reveal d3"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h4>Genuinely trusted</h4><p>Transparent, honest and easy to use. No clutter, no spam — just deals worth your time.</p></div></div>
+      <div class="why reveal d4"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18" stroke-linecap="round"/></svg></div><div><h4>Built for Europe</h4><p>From Amsterdam, Eindhoven, Brussels and Rotterdam to every corner of the continent.</p></div></div>
+    </div>
+  </div>
+</section>
 
-        <a
-          href="#waitlist"
-          className="rounded-full bg-blue-600 px-5 py-3 text-sm font-medium transition hover:bg-blue-500"
-        >
-          Join Waitlist
-        </a>
-      </nav>
+<!-- ===== PRICING ===== -->
+<section id="pricing" class="soft">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">Founding member pricing</span>
+      <h2>Simple plans. Serious savings.</h2>
+      <p>Join now and lock in these launch prices forever. Cancel anytime — though one good deal usually changes your mind.</p>
+    </div>
+    <div class="price-grid">
+      <div class="plan reveal d1">
+        <div class="pname">Taster</div><div class="ptag">A little proof it works.</div>
+        <div class="pprice"><span class="amt">€0</span><span class="per">/ forever</span></div>
+        <ul>
+          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg> One handpicked deal per week</li>
+          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg> Amsterdam departures only</li>
+          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg> Email newsletter</li>
+        </ul>
+        <button class="btn btn-light" onclick="document.getElementById('email-cta').focus()">Start free</button>
+      </div>
+      <div class="plan feat reveal d2">
+        <span class="badge">Most popular</span>
+        <div class="pname">Premium</div><div class="ptag">Every deal, the moment it drops.</div>
+        <div class="pprice"><span class="amt">€5</span><span class="per">/ month</span></div>
+        <ul>
+          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg> All deals, all destinations</li>
+          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg> Instant alerts, no delay</li>
+          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg> Flexible date deals</li>
+          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg> Cancel anytime</li>
+        </ul>
+        <button class="btn btn-grad" onclick="document.getElementById('email-cta').focus()">Get early access</button>
+      </div>
+      <div class="plan reveal d3">
+        <div class="pname">Premium+</div><div class="ptag">For the serious deal hunter.</div>
+        <div class="pprice"><span class="amt">€7.50</span><span class="per">/ month</span></div>
+        <ul>
+          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg> Everything in Premium</li>
+          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg> All departure airports</li>
+          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg> Priority mistake-fare alerts</li>
+          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg> First access to rare deals</li>
+        </ul>
+        <button class="btn btn-light" onclick="document.getElementById('email-cta').focus()">Get early access</button>
+      </div>
+    </div>
+    <p class="price-foot reveal">✦ <b>Founding offer:</b> everyone who joins before launch keeps these prices for life.</p>
+  </div>
+</section>
 
-      {/* Hero */}
-      <section className="relative z-10 mx-auto flex min-h-[80vh] max-w-7xl items-center px-8 lg:px-16">
-        <div className="max-w-3xl">
-          <div className="mb-6 inline-flex rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-2 text-sm text-blue-300">
-            🇪🇺 Built for Europe
-          </div>
+<!-- ===== FAQ ===== -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">Good to know</span>
+      <h2>Frequently asked questions.</h2>
+    </div>
+    <div class="faq reveal">
+      <div class="faq-item">
+        <button class="faq-q">What exactly is Volairr?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="faq-a"><p>Volairr is a flight-deal alert service. We monitor thousands of fares from your home airports around the clock, and the moment a price drops well below its normal level, we send you an alert so you can book before it's gone.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How do the deal alerts work?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="faq-a"><p>We compare every fare to its typical price for that route. When a flight drops far enough below normal — a real deal, or even an airline pricing mistake — you get an email with the route, the price and a link to book.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Which airports do you cover?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="faq-a"><p>At launch we cover Amsterdam, Eindhoven, Brussels and Rotterdam, flying to destinations all across Europe. You choose which airports you want deals from, so you only see flights that actually work for you.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is it really worth €5 a month?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="faq-a"><p>A single deal usually saves you far more than a whole year of membership. And there's a free tier, so you can see the deals roll in before you ever pay a cent.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do I book through Volairr?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="faq-a"><p>No — you book directly with the airline or a trusted travel site. We simply point you to the deal and the best place to grab it, so you stay in full control of your booking.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I cancel anytime?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="faq-a"><p>Absolutely. There are no contracts and no lock-in — cancel in a couple of clicks whenever you like. Founding members keep their launch price for as long as they stay subscribed.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-          <h1 className="text-6xl font-bold leading-tight lg:text-8xl">
-            Never miss
-            <br />
-            Europe's best
-            <span className="block bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
-              flight deals
-            </span>
-          </h1>
+<!-- ===== FINAL CTA ===== -->
+<section class="cta-sec">
+  <div class="wrap">
+    <div class="cta-panel reveal">
+      <div class="cta-pattern"></div>
+      <div class="cta-in">
+        <h2>Never overpay for a flight again.</h2>
+        <p>Join the waitlist and be among the first to fly cheaper. It takes ten seconds — and it might just pay for your next holiday.</p>
+        <!-- EDIT: signup — replace the form action with your Beehiiv form URL to collect real emails -->
+        <form class="signup" id="form-cta" onsubmit="return joinWaitlist(event,'cta')">
+          <input type="email" id="email-cta" placeholder="you@email.com" required autocomplete="email"/>
+          <button type="submit" class="btn btn-white">Get early access</button>
+        </form>
+        <div class="success" id="success-cta"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>You're on board! We'll be in touch before launch. ✈</span></div>
+        <p class="form-note"><span class="pulse"></span> No spam. Just unmissable flight deals.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-          <p className="mt-8 max-w-xl text-xl text-slate-300">
-            Smart alerts for mistake fares, hidden deals and cheap
-            flights across Europe.
-          </p>
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <a href="#" class="logo on-dark"><svg class="mark"><use href="#mark"/></svg><span class="name">Volairr</span></a>
+        <p>Cheap flights and rare mistake fares across Europe — found for you, while you sleep.</p>
+        <div class="foot-tag">Fly smarter. Explore more.</div>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col"><h5>Product</h5><a href="#how">How it works</a><a href="#board">Deals</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div>
+        <div class="foot-col"><h5>Company</h5><a href="#">About</a><a href="mailto:hello@volairr.com">Contact</a><a href="#">Privacy</a></div>
+        <div class="foot-col"><h5>Follow</h5><a href="#">Instagram</a><a href="#">TikTok</a><a href="#">X / Twitter</a></div>
+      </div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 Volairr. All rights reserved.</span><span>Departing Amsterdam · Eindhoven · Brussels · Rotterdam</span></div>
+  </div>
+</footer>
 
-          <div
-            id="waitlist"
-            className="mt-12 flex max-w-xl flex-col gap-4 sm:flex-row"
-          >
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 rounded-xl border border-white/10 bg-white/5 px-6 py-4 outline-none backdrop-blur"
-            />
+<script>
+  /* sticky nav */
+  var hdr=document.getElementById('hdr');
+  function onScroll(){window.scrollY>40?hdr.classList.add('scrolled'):hdr.classList.remove('scrolled')}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
 
-            <button className="rounded-xl bg-blue-600 px-8 py-4 font-semibold transition hover:bg-blue-500">
-              Notify Me
-            </button>
-          </div>
+  /* duplicate ticker for a seamless loop (so you only edit one set of pills) */
+  (function(){var t=document.getElementById('ticker');if(t)t.innerHTML+=t.innerHTML;})();
 
-          <div className="mt-16 grid grid-cols-2 gap-8 md:grid-cols-4">
-            <div>
-              <div className="mb-2 text-blue-400">✈️</div>
-              <h3 className="font-medium">Flight Deals</h3>
-              <p className="mt-1 text-sm text-slate-400">
-                Hidden fares
-              </p>
-            </div>
+  /* scroll reveals */
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
 
-            <div>
-              <div className="mb-2 text-blue-400">🔔</div>
-              <h3 className="font-medium">Alerts</h3>
-              <p className="mt-1 text-sm text-slate-400">
-                Instant updates
-              </p>
-            </div>
+  /* FAQ accordion */
+  document.querySelectorAll('.faq-q').forEach(function(q){
+    q.addEventListener('click',function(){
+      var item=q.parentElement,a=item.querySelector('.faq-a'),open=item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');i.querySelector('.faq-a').style.maxHeight=null});
+      if(!open){item.classList.add('open');a.style.maxHeight=a.scrollHeight+'px'}
+    });
+  });
 
-            <div>
-              <div className="mb-2 text-blue-400">🌍</div>
-              <h3 className="font-medium">Europe</h3>
-              <p className="mt-1 text-sm text-slate-400">
-                Hundreds of routes
-              </p>
-            </div>
-
-            <div>
-              <div className="mb-2 text-blue-400">🛡️</div>
-              <h3 className="font-medium">Trusted</h3>
-              <p className="mt-1 text-sm text-slate-400">
-                Privacy first
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="relative z-10 border-t border-white/10 px-8 py-8 lg:px-16">
-        <div className="flex flex-col gap-4 text-slate-400 md:flex-row md:justify-between">
-          <p>© 2026 Volairr</p>
-
-          <div className="flex gap-6">
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
-            <a href="#">Contact</a>
-          </div>
-        </div>
-      </footer>
-    </main>
-  );
-}
+  /* signup success state — connect the form to Beehiiv to collect real emails (see "EDIT: signup") */
+  function joinWaitlist(e,which){
+    e.preventDefault();
+    var f=document.getElementById('form-'+which),ok=document.getElementById('success-'+which),note=f.parentElement.querySelector('.form-note');
+    f.style.display='none';if(note)note.style.display='none';ok.style.display='flex';return false;
+  }
+</script>
+</body>
+</html>
